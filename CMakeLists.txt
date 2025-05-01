@@ -1,26 +1,20 @@
-﻿cmake_minimum_required (VERSION 3.24)
+﻿cmake_minimum_required(VERSION 3.16)
 
-# Enable Hot Reload for MSVC compilers if supported.
-if (POLICY CMP0141)
-  cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
-endif()
-
-if(WIN32)
-project ("HockeyMidterm" LANGUAGES CXX C)
+project(EnetLearn LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED 1)
 
-set(IncludeDir "${PROJECT_SOURCE_DIR}/include")
-set(SrcDir "${PROJECT_SOURCE_DIR}/src")
+add_executable(client WIN32 
+    "src/client_main.cpp" 
+    "src/mpr_window.cpp" 
+    "src/connect_dialog.cpp" 
+    "src/connect_dialog.rc"
+    )
 
-add_executable (HockeyMidtermClient WIN32 
-  "${SrcDir}/WindowsProject1.cpp"
-  "${SrcDir}/KTileManager.cpp"
-  "${SrcDir}/mpr_timer.cpp"
-)
-target_link_libraries(HockeyMidtermClient PRIVATE winmm gdiplus)
-target_include_directories(HockeyMidtermClient PRIVATE "${IncludeDir}/" "${PROJECT_SOURCE_DIR}/external/")
-# TODO: Add tests and install targets if needed.
-endif(WIN32)
+target_link_libraries(client PRIVATE "${PROJECT_SOURCE_DIR}/enet.lib" winmm gdiplus ws2_32 user32 gdi32)
+target_include_directories(client PRIVATE "${PROJECT_SOURCE_DIR}/")
+
+add_executable(server "src/server_main.cpp")
+target_link_libraries(server PRIVATE "${PROJECT_SOURCE_DIR}/enet.lib" winmm ws2_32 iphlpapi)
+target_include_directories(server PRIVATE "${PROJECT_SOURCE_DIR}/")

@@ -1,0 +1,21 @@
+#include <windows.h>
+
+#include "resource.h"
+
+IDD_CONNECT_DIALOG DIALOGEX 0, 0, 250,
+    120 STYLE DS_SETFONT | WS_POPUP | WS_CAPTION |
+        WS_SYSMENU CAPTION "Connect to Server" FONT 8,
+    "MS Shell Dlg" BEGIN LTEXT "IP Address:", -1, 10, 10, 80,
+    10 EDITTEXT IDC_IP_EDIT, 90, 10, 140, 12,
+    ES_AUTOHSCROLL
+
+    LTEXT "Port:",
+    -1, 10, 30, 80, 10 EDITTEXT IDC_PORT_EDIT, 90, 30, 140, 12,
+    ES_AUTOHSCROLL
+
+    LTEXT "Player Name:",
+    -1, 10, 50, 80, 10 EDITTEXT IDC_NAME_EDIT, 90, 50, 140, 12,
+    ES_AUTOHSCROLL
+
+    DEFPUSHBUTTON "Connect",
+    IDOK, 50, 80, 60, 14 PUSHBUTTON "Cancel", IDCANCEL, 130, 80, 60, 14 END

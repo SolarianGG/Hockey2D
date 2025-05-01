@@ -1,0 +1,6 @@
+#define IDD_CONNECT_DIALOG 101
+#define IDC_IP_EDIT 1001
+#define IDC_PORT_EDIT 1002
+#define IDC_NAME_EDIT 1003
+#define IDOK 1
+#define IDCANCEL 2
